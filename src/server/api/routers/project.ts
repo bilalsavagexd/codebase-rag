@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { InputOTPGroup } from "@/components/ui/input-otp"
+import { pollCommits } from "@/lib/github";
 import { createTRPCRouter, protectedProcedure } from "../trpc"
 
 // TRPC router acts as a express router
@@ -25,6 +25,7 @@ export const projectRouter = createTRPCRouter({
             },
           },
         });
+        await pollCommits(project.id);
         return project;
       }),
       getProjects: protectedProcedure.query(async ({ ctx }) => {
@@ -38,6 +39,11 @@ export const projectRouter = createTRPCRouter({
             deletedAt: null,
           }
         })
-      })
-  });
-  
+      }),
+      getCommits: protectedProcedure.input(z.object({
+        projectId: z.string()
+      })).query(async ({ ctx, input }) => {
+        pollCommits(input.projectId).then().catch(console.error);
+        return await ctx.db.commit.findMany({ where: { projectId: input.projectId } })
+  })
+})

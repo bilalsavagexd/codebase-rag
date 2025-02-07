@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
+import CommitLog from './commit-log'
 import { useUser } from '@clerk/nextjs'
 import useProject from '@/hooks/use-project'
 import { ExternalLink, Github } from 'lucide-react'
@@ -38,13 +39,12 @@ const DashboardPage = () => {
             <div className="mt-4">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
                     AskQuestionCard
-                    Meeting
+                    MeetingCard
                 </div>
             </div>
 
-            <div className = 'mt-8'>
-                CommitLog
-            </div>
+            <div className = 'mt-8'></div>
+            <CommitLog />
         </div>
     )
 }
