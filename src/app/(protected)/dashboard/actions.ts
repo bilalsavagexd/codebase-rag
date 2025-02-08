@@ -29,7 +29,7 @@ export async function askQuestion (question: string, projectId: string) {
     let context = ''
     
     for (const doc of result) {
-        context += `source" ${doc.fileName}\ncode content: ${doc.sourceCode}\n summary of file: ${doc.summary}\n\n`
+        context += `source: ${doc.fileName}\n code content: ${doc.sourceCode}\n summary of file: ${doc.summary}\n\n`
     }
 
     (async () => {
@@ -42,7 +42,6 @@ export async function askQuestion (question: string, projectId: string) {
             AI is always friendly, kind, and inspiring, and he is eager to provide vivid and thoughtful responses to the user.
             AI has the sum of all knowledge in their brain, and is able to accurately answer nearly any question about any topic.
             If the question is asking about code or a specific file, AI will provide the detailed answer, giving step by step instructions.
-     
             START CONTEXT BLOCK
             ${context}
             END OF CONTEXT BLOCK
@@ -50,7 +49,6 @@ export async function askQuestion (question: string, projectId: string) {
             START QUESTION 
             ${question}
             END OF QUESTION
-     
             AI assistant will take into account any CONTEXT BLOCK that is provided in a conversation.
             If the context does not provide the answer to question, the AI assistant will say, "I'm sorry, but I don't know the answer."
             AI assistant will not apologize for previous responses, but instead will indicated new information was gained.

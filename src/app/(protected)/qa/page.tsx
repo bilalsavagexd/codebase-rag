@@ -31,7 +31,7 @@ const QAPage = () => {
                                     {question.question}
                                 </p>
                                 <span className = 'text-xs text-gray-400 whitespace-nowrap'>
-                                    {question.createdAt.toLocalDateString()}
+                                    {question.createdAt.toLocaleDateString()}
                                 </span>
                             </div>
                             <p className = 'text-gray-500 line-clamp-1 text-sm'>

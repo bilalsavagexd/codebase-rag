@@ -2,12 +2,11 @@ import axios from 'axios';
 import { Octokit } from 'octokit'
 import { aiSummariseCommit } from './gemini';
 import { db } from '@/server/db';
+import { get } from 'http';
 
-export const octokit = new Octokit({
-    auth: process.env.GITHUB_TOKEN,
-});
+export const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
-const githubUrl = 'https://github.com/bilalsavagexd/gitrag.git'
+// const githubUrl = 'https://github.com/bilalsavagexd/gitrag';
 
 type Response = {
     commitHash: string;
@@ -100,4 +99,5 @@ async function filterUnprocessedCommits(projectId: string, commitHashes: Respons
     return unprocessedCommits;
 };
 
-  
+
+// console.log(await getCommitHashes(githubUrl));

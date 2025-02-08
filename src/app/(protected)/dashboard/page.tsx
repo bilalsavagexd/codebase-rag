@@ -10,7 +10,6 @@ import ArchiveButton from './archive-button'
 
 const DashboardPage = () => {
     const { project } = useProject()
-
     return (
         <div>
             <div className = 'flex items-center justify-between flex-wrap gap-y-4'>

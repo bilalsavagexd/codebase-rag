@@ -11,18 +11,17 @@ import { readStreamableValue } from 'ai/rsc'
 import MDEditor from '@uiw/react-md-editor'
 import CodeReferences from './code-references'
 import { api } from '@/trpc/react'
-import { on } from 'events'
 import { toast } from 'sonner'
 import useRefetch from '@/hooks/use-refetch'
 
 
 const AskQuestionCard = () => {
     const { project } = useProject()
-    const [open, setOpen ] = React.useState(false)
+    const [ open, setOpen ] = React.useState(false)
     const [ question, setQuestion ] = React.useState('')
-    const [loading , setLoading] = React.useState(false)
-    const [filesReferences, setFilesReferences] = React.useState<{ fileName: string, sourceCode: string, summary: string }[]>([])
-    const [answer , setAnswer] = React.useState('')
+    const [ loading , setLoading ] = React.useState(false)
+    const [ filesReferences, setFilesReferences ] = React.useState<{ fileName: string, sourceCode: string, summary: string }[]>([])
+    const [ answer , setAnswer ] = React.useState('')
     const saveAnswer = api.project.saveAnswer.useMutation()
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,7 +51,7 @@ const AskQuestionCard = () => {
                     <DialogHeader>
                         <div className="flex items-center gap-2">
                             <DialogTitle>
-                                <Image src='/logo.png' alt='GitRAG' width={40} height={40} />
+                                <Image src='/logo.png' alt='GG' width={40} height={40} />
                             </DialogTitle>
                             <Button  disabled={saveAnswer. isPending} variant={'outline'} onClick={() => {
                                 saveAnswer.mutate({
@@ -70,10 +69,10 @@ const AskQuestionCard = () => {
                                     }
                                 })
                             }}>
+                                Save Answer
                             </Button>
                         </div>
                     </DialogHeader>
-                    <Button type='button' onClick={() => {setOpen(false)}}>Close</Button>
                     <MDEditor.Markdown source={answer} className= 'max-w-[70vw] !h-full max-h-[40vh] overflow-scroll'/>
                     <div className="h-4"></div>
                     <CodeReferences filesReferences={filesReferences}/>
