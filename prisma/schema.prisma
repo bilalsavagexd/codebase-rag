@@ -9,6 +9,7 @@ datasource db {
   extensions = [vector]
 }
 
+
 model User {
   id            String          @id @default(cuid())
   createdAt     DateTime        @default(now())
@@ -21,6 +22,7 @@ model User {
 
   // Relations
   userToProjects UserToProject[]
+  questionsAsked Question[]
 }
 
 model Project {
@@ -32,8 +34,10 @@ model Project {
   deletedAt     DateTime?
 
   // Relations
-  userToProjects UserToProject[]
-  commits        Commit[]
+  userToProjects       UserToProject[]
+  commits              Commit[]
+  sourceCodeEmbeddings SourceCodeEmbedding[]
+  savedQuestions       Question[]
 }
 
 model UserToProject {
@@ -52,7 +56,7 @@ model UserToProject {
 }
 
 model SourceCodeEmbedding {
-   id              String    @id @default(uuid())
+   id              String    @id @default(cuid())
 
    summaryEmbedding Unsupported("vector(768)")?
    sourceCode      String
@@ -61,6 +65,23 @@ model SourceCodeEmbedding {
 
    projectId       String
    project         Project   @relation(fields: [projectId], references: [id])
+}
+
+model Question {
+  id              String    @id @default(cuid())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  question        String
+  answer          String
+
+  filesReferences Json?
+
+  projectId       String
+  project         Project   @relation(fields: [projectId], references: [id])
+  
+  userId          String
+  user            User      @relation(fields: [userId], references: [id])
 }
 
 model Commit {
