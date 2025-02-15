@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from langchain.schema import Document
 import streamlit as st
 from langchain_pinecone import PineconeVectorStore
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 
 # Load environment variables from .env file
 load_dotenv()
