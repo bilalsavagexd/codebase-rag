@@ -7,3 +7,4 @@ sentence-transformers
 gitpython 
 streamlit
 google-generativeai
+langchain-huggingface
