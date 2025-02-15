@@ -1,0 +1,8 @@
+pygithub 
+langchain 
+langchain-community 
+pinecone-client 
+langchain-pinecone 
+sentence-transformers 
+gitpython 
+streamlit
