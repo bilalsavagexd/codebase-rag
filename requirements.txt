@@ -6,3 +6,4 @@ langchain-pinecone
 sentence-transformers 
 gitpython 
 streamlit
+google-generativeai
