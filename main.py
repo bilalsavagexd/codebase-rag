@@ -1,13 +1,13 @@
-import tempfile
 import os
 import shutil
+import tempfile
 from git import Repo
-import google.generativeai as genai
+import streamlit as st
 from pathlib import Path
 from pinecone import Pinecone
 from dotenv import load_dotenv
+import google.generativeai as genai
 from langchain.schema import Document
-import streamlit as st
 from langchain_pinecone import PineconeVectorStore
 from langchain_huggingface import HuggingFaceEmbeddings
 
@@ -128,20 +128,24 @@ def perform_rag(query, repo_url):
         raw_query_embedding = embeddings.embed_query(query)
 
         top_matches = pinecone_index.query(
-            vector=raw_query_embedding, 
-            top_k=3,  # Reduced from 5
+            vector=raw_query_embedding.tolist(), 
+            top_k=5,
             include_metadata=True, 
             namespace=repo_url
         )
 
-        contexts = [trim_context(item['metadata']['text']) for item in top_matches['matches']]
+        contexts = []
+        for match in top_matches['matches']:
+            if 'text' in match['metadata']:
+                context = trim_context(match['metadata']['text'])
+                contexts.append(context)
 
         augmented_query = f"""Code context:
 {' '.join(contexts[:2])}
 
 Question: {query}"""
 
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(f"""You are a Senior Software Engineer. Provide clear, concise technical answers.
 
 {augmented_query}""")
