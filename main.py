@@ -128,7 +128,7 @@ def perform_rag(query, repo_url):
         raw_query_embedding = embeddings.embed_query(query)
 
         top_matches = pinecone_index.query(
-            vector=raw_query_embedding.tolist(), 
+            vector=raw_query_embedding, 
             top_k=5,
             include_metadata=True, 
             namespace=repo_url
